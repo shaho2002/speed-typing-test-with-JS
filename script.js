@@ -1,9 +1,22 @@
 let theTimer = document.querySelector('#timer');
-let totalMs = 0;
+let typingInput = document.querySelector('#typingInput');
 
+let totalMs = 0;
 let minutes;
 let seconds;
 let centiSeconds;
+
+let pressFirstKey = false;
+
+function start() {
+
+    if (pressFirstKey == false) {
+        pressFirstKey = true;
+        setInterval(runTimer, 10);
+    }
+
+}
+typingInput.addEventListener('keypress', start);
 
 function runTimer() {
     totalMs = totalMs + 10;
@@ -16,4 +29,3 @@ function runTimer() {
     theTimer.innerHTML = currentTime;
 }
 
-setInterval(runTimer, 10);
