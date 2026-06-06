@@ -7,7 +7,12 @@ let seconds;
 let centiSeconds;
 
 let pressFirstKey = false;
-
+function addPrefixZero(time) {
+    if (time <= 9) {
+        time = '0' + time;
+    }
+    return time;
+}
 function start() {
 
     if (pressFirstKey == false) {
@@ -25,7 +30,7 @@ function runTimer() {
     seconds = Math.floor((totalMs % 60000) / 1000);
     centiSeconds = Math.floor((totalMs % 1000) / 10);
 
-    let currentTime = minutes + ':' + seconds + ':' + centiSeconds;
+    let currentTime = addPrefixZero(minutes) + ':' + addPrefixZero(seconds) + ':' + addPrefixZero(centiSeconds);
     theTimer.innerHTML = currentTime;
 }
 
