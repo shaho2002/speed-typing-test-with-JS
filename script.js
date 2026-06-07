@@ -1,5 +1,6 @@
 let theTimer = document.querySelector('#timer');
 let typingInput = document.querySelector('#typingInput');
+let textDisplay = document.querySelector('.text-display');
 
 let totalMs = 0;
 let minutes;
@@ -13,11 +14,13 @@ function addPrefixZero(time) {
     }
     return time;
 }
+
 function start() {
 
     if (pressFirstKey == false) {
         pressFirstKey = true;
-        setInterval(runTimer, 10);
+        interval = setInterval(runTimer, 10);
+
     }
 
 }
@@ -32,5 +35,25 @@ function runTimer() {
 
     let currentTime = addPrefixZero(minutes) + ':' + addPrefixZero(seconds) + ':' + addPrefixZero(centiSeconds);
     theTimer.innerHTML = currentTime;
+
 }
+
+function spellCheck() {
+    let originText = textDisplay.textContent.trim();
+    let userText = typingInput.value.trim();
+
+    if (originText === userText) {
+        clearInterval(interval);
+        typingInput.style.color = "green";
+    } 
+    else if (originText.startsWith(userText)) {
+        typingInput.style.color = "green";
+    } 
+    else {
+        typingInput.style.color = "red";
+    }
+}
+
+typingInput.addEventListener("keyup",spellCheck);
+
 
