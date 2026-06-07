@@ -1,6 +1,7 @@
 let theTimer = document.querySelector('#timer');
 let typingInput = document.querySelector('#typingInput');
 let textDisplay = document.querySelector('.text-display');
+let resetBtn = document.querySelector('#resetBtn');
 
 let totalMs = 0;
 let minutes;
@@ -45,15 +46,31 @@ function spellCheck() {
     if (originText === userText) {
         clearInterval(interval);
         typingInput.style.color = "green";
-    } 
+    }
     else if (originText.startsWith(userText)) {
         typingInput.style.color = "green";
-    } 
+    }
     else {
         typingInput.style.color = "red";
     }
 }
+typingInput.addEventListener("keyup", spellCheck);
 
-typingInput.addEventListener("keyup",spellCheck);
+function reset() {
+
+    clearInterval(interval);
+    totalMs = 0;
+    minutes = 0;
+    seconds = 0;
+    centiSeconds = 0;
+    interval = null;
+    theTimer.innerHTML = "00:00:00";
+    typingInput.value = "";
+    typingInput.style.color = "";
+    pressFirstKey = false;
+
+}
+
+resetBtn.addEventListener('click', reset);
 
 
