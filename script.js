@@ -2,6 +2,7 @@ let theTimer = document.querySelector('#timer');
 let typingInput = document.querySelector('#typingInput');
 let textDisplay = document.querySelector('.text-display');
 let resetBtn = document.querySelector('#resetBtn');
+let showMistake = document.querySelector('#showMistake');
 
 let totalMs = 0;
 let minutes;
@@ -9,6 +10,8 @@ let seconds;
 let centiSeconds;
 
 let pressFirstKey = false;
+
+let mistake = 0;
 function addPrefixZero(time) {
     if (time <= 9) {
         time = '0' + time;
@@ -36,6 +39,8 @@ function runTimer() {
 
     let currentTime = addPrefixZero(minutes) + ':' + addPrefixZero(seconds) + ':' + addPrefixZero(centiSeconds);
     theTimer.innerHTML = currentTime;
+    showMistake.innerHTML = mistake;        
+
 
 }
 
@@ -52,6 +57,7 @@ function spellCheck() {
     }
     else {
         typingInput.style.color = "red";
+        mistake++;
     }
 }
 typingInput.addEventListener("keyup", spellCheck);
@@ -63,6 +69,8 @@ function reset() {
     minutes = 0;
     seconds = 0;
     centiSeconds = 0;
+    mistake = 0;
+    showMistake.innerHTML = '0';
     interval = null;
     theTimer.innerHTML = "00:00:00";
     typingInput.value = "";
