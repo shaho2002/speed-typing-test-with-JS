@@ -4,6 +4,7 @@ let textDisplay = document.querySelector('.text-display');
 let resetBtn = document.querySelector('#resetBtn');
 let showMistake = document.querySelector('#showMistake');
 let accuracy = document.querySelector('#accuracy');
+let wpmElement = document.querySelector('#wpm');
 
 
 let totalMs = 0;
@@ -16,6 +17,7 @@ let pressFirstKey = false;
 let mistake = 0;
 let totalTyped = 0;
 let accuracyPercent = 0;
+let wpm = 0 ;
 function addPrefixZero(time) {
     if (time <= 9) {
         time = '0' + time;
@@ -46,8 +48,8 @@ function runTimer() {
     let currentTime = addPrefixZero(minutes) + ':' + addPrefixZero(seconds) + ':' + addPrefixZero(centiSeconds);
     theTimer.innerHTML = currentTime;
     showMistake.innerHTML = mistake;
-accuracy.innerHTML = accuracyPercent.toFixed(0) + '%';
-
+    accuracy.innerHTML = accuracyPercent.toFixed(0) + '%';
+  
 }
 
 
@@ -59,6 +61,20 @@ function updateAccuracyPercent() {
         correctChars = (correctChars < 0) ? 0 : correctChars;
         accuracyPercent = (correctChars / totalTyped) * 100;
     }
+}
+
+
+
+function wordPerMinute(){
+
+    let min = totalMs / 60000;
+    let sec = totalMs / 1000
+    if (min > 0 && sec > 2) {
+      wpm = (totalTyped / 5) / min;
+       wpmElement.innerHTML = wpm.toFixed(1);
+    console.log(wpm);
+    }
+
 }
 
 
@@ -81,6 +97,7 @@ function spellCheck() {
     totalTyped++;
 
     updateAccuracyPercent();
+    wordPerMinute();
 
 }
 typingInput.addEventListener("keyup", (event) => {
@@ -101,6 +118,8 @@ function reset() {
     totalTyped = 0;
     mistake = 0;
     accuracyPercent = 0;
+    wpm = 0;
+    wpmElement.innerHTML = "0";
     accuracy.innerHTML = "0";
     showMistake.innerHTML = "0";
     interval = null;
