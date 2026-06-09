@@ -17,7 +17,7 @@ let pressFirstKey = false;
 let mistake = 0;
 let totalTyped = 0;
 let accuracyPercent = 0;
-let wpm = 0 ;
+let wpm = 0;
 function addPrefixZero(time) {
     if (time <= 9) {
         time = '0' + time;
@@ -49,7 +49,7 @@ function runTimer() {
     theTimer.innerHTML = currentTime;
     showMistake.innerHTML = mistake;
     accuracy.innerHTML = accuracyPercent.toFixed(0) + '%';
-  
+
 }
 
 
@@ -65,14 +65,14 @@ function updateAccuracyPercent() {
 
 
 
-function wordPerMinute(){
+function wordPerMinute() {
 
     let min = totalMs / 60000;
     let sec = totalMs / 1000
     if (min > 0 && sec > 2) {
-      wpm = (totalTyped / 5) / min;
-       wpmElement.innerHTML = wpm.toFixed(1);
-    console.log(wpm);
+        wpm = (totalTyped / 5) / min;
+        wpmElement.innerHTML = wpm.toFixed(1);
+        console.log(wpm);
     }
 
 }
@@ -131,5 +131,3 @@ function reset() {
 }
 
 resetBtn.addEventListener('click', reset);
-
-
